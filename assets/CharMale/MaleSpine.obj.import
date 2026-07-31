@@ -1,0 +1,25 @@
+[remap]
+
+importer="wavefront_obj"
+importer_version=1
+type="Mesh"
+uid="uid://bh5yav2tr05hx"
+path="res://.godot/imported/MaleSpine.obj-4b9cfc478d6bb1d1d45e74cee5bf21d9.mesh"
+
+[deps]
+
+files=["res://.godot/imported/MaleSpine.obj-4b9cfc478d6bb1d1d45e74cee5bf21d9.mesh"]
+
+source_file="res://assets/CharMale/MaleSpine.obj"
+dest_files=["res://.godot/imported/MaleSpine.obj-4b9cfc478d6bb1d1d45e74cee5bf21d9.mesh", "res://.godot/imported/MaleSpine.obj-4b9cfc478d6bb1d1d45e74cee5bf21d9.mesh"]
+
+[params]
+
+generate_tangents=true
+generate_lods=true
+generate_shadow_mesh=true
+generate_lightmap_uv2=false
+generate_lightmap_uv2_texel_size=0.2
+scale_mesh=Vector3(1, 1, 1)
+offset_mesh=Vector3(0, 0, 0)
+force_disable_mesh_compression=false

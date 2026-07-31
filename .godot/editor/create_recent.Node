@@ -1,0 +1,5 @@
+Node3D
+AnimationPlayer
+CollisionShape3D
+RigidBody3D
+MeshInstance3D

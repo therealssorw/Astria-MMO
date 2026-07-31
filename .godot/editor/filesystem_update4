@@ -1,0 +1,7 @@
+res://game/player/animationHandler.gd
+res://game/player/player.tscn
+res://game/player/player.gd
+res://CLAUDE.md
+res://game/player/movement_component.gd
+res://probe_bones.gd
+res://preview.gd
