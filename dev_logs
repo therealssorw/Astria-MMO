@@ -1,0 +1,7 @@
+31 July 2026
+- add a simple level(world)
+- working on player movement:
+    - 3rd person camera controller
+    - wasd move
+    - sprint
+- use component-based system for the movement and camera controller

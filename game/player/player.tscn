@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://k15sv83kkytb"]
+
+[ext_resource type="Script" uid="uid://ciofno3c35od6" path="res://game/player/player.gd" id="1_obar5"]
+[ext_resource type="Script" uid="uid://gngswt80v8j5" path="res://game/player/camera_handler.gd" id="2_b2mth"]
+[ext_resource type="Script" uid="uid://cxowj7oiajriu" path="res://game/player/movement_component.gd" id="3_8soms"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_e5kad"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_e5kad"]
+albedo_color = Color(0, 1, 1, 1)
+
+[sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfee8"]
+
+[node name="Player" type="CharacterBody3D" unique_id=1001415265]
+script = ExtResource("1_obar5")
+
+[node name="Body" type="MeshInstance3D" parent="." unique_id=735725621]
+mesh = SubResource("CapsuleMesh_e5kad")
+
+[node name="Eye1" type="CSGSphere3D" parent="Body" unique_id=30016083]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.22003192, 0.607219, -0.45247412)
+radius = 0.125
+material = SubResource("StandardMaterial3D_e5kad")
+
+[node name="Eye2" type="CSGSphere3D" parent="Body" unique_id=406632388]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.13839209, 0.607219, -0.45247412)
+radius = 0.125
+material = SubResource("StandardMaterial3D_e5kad")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="." unique_id=709982094]
+shape = SubResource("CapsuleShape3D_bfee8")
+
+[node name="CameraPivot" type="Node3D" parent="." unique_id=1622477292]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5341647, 0)
+
+[node name="SpringArm3D" type="SpringArm3D" parent="CameraPivot" unique_id=1243005099]
+spring_length = 5.0
+margin = 0.5
+
+[node name="Camera3D" type="Camera3D" parent="CameraPivot/SpringArm3D" unique_id=623416439]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5)
+
+[node name="CameraComponent" type="Node" parent="." unique_id=1235392727 node_paths=PackedStringArray("camera_pivot", "camera", "body")]
+script = ExtResource("2_b2mth")
+camera_pivot = NodePath("../CameraPivot")
+camera = NodePath("../CameraPivot/SpringArm3D/Camera3D")
+body = NodePath("..")
+
+[node name="MovementComponent" type="Node" parent="." unique_id=1521836166 node_paths=PackedStringArray("body")]
+script = ExtResource("3_8soms")
+body = NodePath("..")
+
+[connection signal="is_sprinting" from="MovementComponent" to="CameraComponent" method="_on_movement_component_is_sprinting"]
+[connection signal="not_sprinting" from="MovementComponent" to="CameraComponent" method="_on_movement_component_not_sprinting"]
