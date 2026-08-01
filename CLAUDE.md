@@ -4,6 +4,8 @@
 
 - Write code as tight, simple, and compact as possible while still being readable.
 - Do not add comments.
+- Never shorten names. No abbreviations, no single letters. This applies to variables, parameters, functions, nodes and files alike.
+- A programmer should be able to look at any name and instantly know what it does.
 
 ## Responses
 

@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://ciofno3c35od6" path="res://game/player/player.gd" id="1_p"]
 [ext_resource type="Script" uid="uid://gngswt80v8j5" path="res://game/player/camera_handler.gd" id="2_c"]
 [ext_resource type="Script" uid="uid://cxowj7oiajriu" path="res://game/player/movement_component.gd" id="3_m"]
-[ext_resource type="Script" uid="uid://cal711hauawcf" path="res://game/player/animationHandler.gd" id="4_a"]
+[ext_resource type="Script" uid="uid://cal711hauawcf" path="res://game/player/animation_handler.gd" id="4_a"]
 [ext_resource type="PackedScene" uid="uid://cr8sqn4hfex88" path="res://assets/CharMale/char_male.glb" id="5_model"]
 
 [sub_resource type="CapsuleShape3D" id="CapsuleShape3D_bfee8"]
@@ -612,10 +612,10 @@ replication_config = SubResource("SceneReplicationConfig_owner")
 
 [node name="Scripts" type="Node3D" parent="." unique_id=1018432269]
 
-[node name="MovementComponent" type="Node" parent="Scripts" unique_id=1670729207 node_paths=PackedStringArray("body", "anim")]
+[node name="MovementComponent" type="Node" parent="Scripts" unique_id=1670729207 node_paths=PackedStringArray("body", "animation_handler")]
 script = ExtResource("3_m")
 body = NodePath("../..")
-anim = NodePath("../AnimationHandler")
+animation_handler = NodePath("../AnimationHandler")
 
 [node name="AnimationHandler" type="Node3D" parent="Scripts" unique_id=1897249541 node_paths=PackedStringArray("animation_player")]
 script = ExtResource("4_a")
