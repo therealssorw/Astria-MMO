@@ -1,7 +1,8 @@
 extends Node
 
-#USE THIS IN PRODUCTION const SERVER_ADDRESS := "3.137.184.94"
-const SERVER_ADDRESS := "127.0.0.1"
+#USE THIS IN PRODUCTION 
+const SERVER_ADDRESS := "3.137.184.94"
+#const SERVER_ADDRESS := "127.0.0.1"
 const SERVER_PORT := 27032
 
 func has_launch_flag(flag: String) -> bool:
