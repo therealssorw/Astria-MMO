@@ -5,3 +5,7 @@ res://CLAUDE.md
 res://game/player/movement_component.gd
 res://probe_bones.gd
 res://preview.gd
+res://game/player/camera_handler.gd
+res://game/net/net.gd
+res://game/world/world.gd
+res://game/world/world.tscn

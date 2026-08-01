@@ -15,6 +15,8 @@ func _ready() -> void:
 	target_fov = normal_fov
 
 func _input(event: InputEvent) -> void:
+	if not body.is_owner():
+		return
 	if event is InputEventMouseMotion:
 		body.rotate_y(-event.relative.x * mouse_sens) # player rotate y
 		camera_pivot.rotate_x(-event.relative.y * mouse_sens) # camera pivot rotate x

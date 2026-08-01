@@ -16,13 +16,12 @@ func physics_update(delta: float):
 	if not grounded:
 		body.velocity += body.get_gravity() * delta
 
-	if Input.is_action_just_pressed("ui_accept") and grounded:
+	if body.jump and grounded:
 		body.velocity.y = jump_vel
 
-	var input_dir := Input.get_vector("left", "right", "up", "down")
-	var direction := (body.transform.basis * Vector3(input_dir.x, 0, input_dir.y)).normalized()
-	
-	var sprint_state: bool = Input.is_action_pressed("sprint")
+	var direction := (body.transform.basis * Vector3(body.move.x, 0, body.move.y)).normalized()
+
+	var sprint_state: bool = body.sprint
 
 	if direction:
 		if sprint_state == true:
