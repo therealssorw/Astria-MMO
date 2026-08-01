@@ -13,6 +13,13 @@
 - Max 7 words per bullet. Numbers do not count as words.
 - Report only which files changed, plus their line numbers (e.g. 3-10 and 15).
 
+## Git
+
+- Never use git worktrees.
+- Never create, switch, or branch off.
+- Always work on the checked out branch.
+- Only do otherwise when explicitly told.
+
 ## This file
 
 - Do not write to CLAUDE.md unless stated otherwise.

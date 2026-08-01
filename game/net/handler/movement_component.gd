@@ -1,10 +1,13 @@
 extends Node
 
+# Server only, moves the body from input
+
 @export var normal_speed: float = 5.0
 @export var sprint_speed: float = 9.0
 var speed: float
 @export var jump_velocity = 4.5
 @export var body: CharacterBody3D
+@export var player_input: Node
 @export var animation_handler: Node
 
 signal is_sprinting
@@ -16,13 +19,15 @@ func physics_update(delta: float):
 	if not grounded:
 		body.velocity += body.get_gravity() * delta
 
-	if body.jump_held and grounded:
+	if player_input.jump_held and grounded:
 		body.velocity.y = jump_velocity
 
-	var direction := (body.transform.basis * Vector3(body.move_direction.x, 0, body.move_direction.y)).normalized()
+	# Input is local, basis makes it world
+	var direction := (body.transform.basis * Vector3(player_input.move_direction.x, 0, player_input.move_direction.y)).normalized()
 
-	var sprint_state: bool = body.sprint_held
+	var sprint_state: bool = player_input.sprint_held
 
+	# Priority zero, combat states override these
 	if direction:
 		if sprint_state == true:
 			speed = sprint_speed

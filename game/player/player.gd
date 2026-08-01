@@ -1,47 +1,41 @@
 extends CharacterBody3D
 
+@onready var player_input := $Scripts/PlayerInput
 @onready var movement_component := $Scripts/MovementComponent
-
-var move_direction := Vector2.ZERO
-var sprint_held := false
-var jump_held := false
+@onready var combat_component := $Scripts/CombatComponent
+@onready var combat_state_machine := $Scripts/CombatStateMachine
 
 func _enter_tree() -> void:
+	# Server simulates, owner only sends rotation
 	set_multiplayer_authority(1)
 	$OwnerSync.set_multiplayer_authority(name.to_int())
 
+# Node is named after its peer id
 func is_owner() -> bool:
 	return name.to_int() == multiplayer.get_unique_id()
 
 func _ready() -> void:
 	if not is_owner():
+		# Only your own health bar shows
+		$CombatHud.queue_free()
 		return
 	$CameraPivot/SpringArm3D/Camera3D.current = true
 	Input.mouse_mode = Input.MOUSE_MODE_CAPTURED
 
 func _physics_process(delta: float) -> void:
 	if is_owner():
-		var direction := Input.get_vector("left", "right", "up", "down")
-		var sprinting := Input.is_action_pressed("sprint")
-		var jumping := Input.is_action_pressed("ui_accept")
-		if multiplayer.is_server():
-			apply_input(direction, sprinting, jumping)
-		else:
-			push_input.rpc_id(1, direction, sprinting, jumping)
+		player_input.send_input()
 
+	# Everything below is server authoritative
 	if not multiplayer.is_server():
 		return
 
+	# Combat first, it can lock animation
+	combat_state_machine.physics_update(delta)
 	movement_component.physics_update(delta)
 
 	move_and_slide()
 
-func apply_input(direction: Vector2, sprinting: bool, jumping: bool) -> void:
-	move_direction = direction
-	sprint_held = sprinting
-	jump_held = jumping
-
-@rpc("any_peer", "call_remote", "unreliable_ordered")
-func push_input(direction: Vector2, sprinting: bool, jumping: bool) -> void:
-	if multiplayer.get_remote_sender_id() == name.to_int():
-		apply_input(direction, sprinting, jumping)
+# Entry point used by another player's strike
+func receive_damage(amount: float, source_position: Vector3) -> void:
+	combat_component.receive_damage(amount, source_position)
